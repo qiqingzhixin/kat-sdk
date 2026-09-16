@@ -4,11 +4,10 @@ KAT 的独立 Python 作者库，提供 Workflow / Provider 声明、Context 合
 
 ## 安装与使用
 
-当前支持 Python 3.14。首次交付从本仓库构建和安装，不要求存在 PyPI 发布：
+当前支持 Python 3.14。通过 GitHub Release 的 wheel 安装：
 
 ```sh
-python -m pip install .
-python -m pip wheel --no-deps --wheel-dir dist .
+python -m pip install https://github.com/qiqingzhixin/kat-sdk/releases/download/v0.1.0/kat_sdk-0.1.0-py3-none-any.whl
 ```
 
 其他目录可通过 `python -m pip install /path/to/kat_sdk-0.1.0-py3-none-any.whl` 安装构建产物。安装器处理 DataFusion / PyArrow 依赖。
@@ -36,6 +35,8 @@ python -I -B -m pytest tests
 python -m pip check
 ```
 
-SDK 独立版本化。CLI 锁定已验证的 SDK 版本及源码提交，在 Payload 构建期安装 wheel，执行期无需联网安装。
+## 发布
+
+SDK 独立版本化。更新 pyproject.toml 版本后推送对应 v<version> tag，CI 在 Linux / Windows 测试通过后发布 wheel 和 SHA256SUMS 到 GitHub Release。CLI 锁定版本、下载 URL 和 SHA-256，在 Payload 构建期下载并安装 wheel，执行期无需联网安装。当前不依赖 PyPI 发布。
 
 源码与已有表工具测试从 `maokelong/kat-cli` 迁移，继续采用原仓库 LICENSE；拆分设计见 [kat-cli #280](https://github.com/maokelong/kat-cli/issues/280)。
